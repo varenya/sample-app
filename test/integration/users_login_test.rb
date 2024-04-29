@@ -24,4 +24,11 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", logout_path, count: 1
     assert_select "a[href=?]", user_path(@user)
   end
+
+  test "login with invalid information" do
+    post login_path, params: { session: { email: @user.email, password: 'foobar' } }
+    assert_response :unprocessable_entity
+    assert_template "sessions/new"
+    assert_not flash.nil?
+  end
 end
