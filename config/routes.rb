@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/contact', to: 'static_pages#contact'
   get '/signup', to: 'users#new'
   get '/login', to: 'sessions#new'
-  get '/logout', to: 'sessions#destroy'
+  delete '/logout', to: 'sessions#destroy'
   post '/login', to: 'sessions#create'
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
