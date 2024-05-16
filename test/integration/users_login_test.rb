@@ -20,6 +20,10 @@ class InvalidLoginTest < UsersLoginTest
     get root_path
     assert flash.empty?
   end
+
+  test "authenticated? should return false for a user with nil digest" do
+    assert_not @user.authenticated?('')
+  end
 end
 
 class ValidLogin < UsersLoginTest
@@ -63,6 +67,10 @@ class LogoutTest < Logout
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", user_path(@user), count: 0
     assert_select "a[href=?]", logout_path, count: 0
+  end
+  test "logout in other window" do
+    delete logout_path
+    assert_redirected_to root_url
   end
 end
 
